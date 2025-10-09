@@ -1,7 +1,6 @@
 # Flask Shorty — URL Shortener (Render + PostgreSQL)
 
 シンプルな URL 短縮サービス。Flask + SQLAlchemy + PostgreSQL。  
-Render.com にそのままデプロイできます。
 
 ## 機能
 - URL 短縮（6文字コード）
