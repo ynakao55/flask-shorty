@@ -121,6 +121,17 @@ def resolve(short_code: str):
     db.session.commit()
     return redirect(link.original_url, code=302)
 
+@app.post("/links/<int:link_id>/delete")
+def delete_link(link_id: int):
+    link = Link.query.get(link_id)
+    if not link:
+        flash("対象のリンクが見つかりません。", "warning")
+        return redirect(url_for("index"))
+    db.session.delete(link)
+    db.session.commit()
+    flash("短縮リンクを削除しました。", "success")
+    return redirect(url_for("index"))
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html"), 404

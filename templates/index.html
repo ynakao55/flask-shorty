@@ -13,17 +13,28 @@
     </form>
   </div>
 </div>
+
 {% if recent %}
 <div class="mt-4">
   <h2 class="h6 text-muted">最近作成したリンク</h2>
   <ul class="list-group">
     {% for link in recent %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <a href="{{ request.url_root }}{{ link.short_code }}" target="_blank">{{ request.url_root }}{{ link.short_code }}</a>
-          <div class="small text-muted">{{ link.original_url }}</div>
+        <div class="me-3">
+          <a href="{{ request.url_root }}{{ link.short_code }}" target="_blank">
+            {{ request.url_root }}{{ link.short_code }}
+          </a>
+          <div class="small text-muted text-truncate" style="max-width:520px;">
+            {{ link.original_url }}
+          </div>
         </div>
-        <span class="badge text-bg-secondary">{{ link.clicks }} clicks</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge text-bg-secondary">{{ link.clicks }} clicks</span>
+          <form method="post" action="{{ url_for('delete_link', link_id=link.id) }}"
+                onsubmit="return confirm('この短縮リンクを削除します。よろしいですか？');">
+            <button type="submit" class="btn btn-sm btn-outline-danger">削除</button>
+          </form>
+        </div>
       </li>
     {% endfor %}
   </ul>
