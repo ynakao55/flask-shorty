@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h1 class="h4 mb-3">URL を短縮</h1>
+    <form method="post" action="{{ url_for('shorten') }}">
+      <div class="mb-3">
+        <label for="url" class="form-label">対象URL</label>
+        <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com/page" required>
+        <div class="form-text">http(s) から始まるURLを入力してください。</div>
+      </div>
+      <button class="btn btn-primary" type="submit">短縮する</button>
+    </form>
+  </div>
+</div>
+{% if recent %}
+<div class="mt-4">
+  <h2 class="h6 text-muted">最近作成したリンク</h2>
+  <ul class="list-group">
+    {% for link in recent %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <a href="{{ request.url_root }}{{ link.short_code }}" target="_blank">{{ request.url_root }}{{ link.short_code }}</a>
+          <div class="small text-muted">{{ link.original_url }}</div>
+        </div>
+        <span class="badge text-bg-secondary">{{ link.clicks }} clicks</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}

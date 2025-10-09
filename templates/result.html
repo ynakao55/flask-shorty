@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h1 class="h4 mb-3">短縮URLを作成しました</h1>
+    <div class="input-group mb-3">
+      <input id="shortUrl" class="form-control" value="{{ short_url }}" readonly>
+      <button class="btn btn-outline-secondary" onclick="navigator.clipboard.writeText(document.getElementById('shortUrl').value)">コピー</button>
+    </div>
+    <p class="mb-0"><a href="{{ short_url }}" target="_blank">{{ short_url }}</a> にアクセスすると <code>{{ link.original_url }}</code> へリダイレクトします。</p>
+  </div>
+</div>
+<div class="mt-3">
+  <a href="{{ url_for('index') }}" class="btn btn-link">&larr; もう1つ作る</a>
+</div>
+{% endblock %}
