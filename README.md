@@ -79,19 +79,7 @@ docker compose up -d --build --force-recreate
 
 以下のURLからアクセスできます。
 
-- https://flask-shorty.ysnko.com
-
-### 初回アクセス時の流れ
-1. 上記リンクを開く
-2. ログイン方法で **メール（PINコード）** を選択
-3. メールアドレスを入力
-4. 届いたメールに記載された **PINコード** を確認
-5. PINコードを入力してログイン
-
-### なぜPINが必要？
-このサイトは Cloudflare Access により保護されており、  
-**本人確認のためにワンタイムPIN（使い捨てコード）** を使用しています。  
-パスワードを作成・管理しなくても、メールで簡単に本人確認できます。
+- https://flask-shorty.onrender.com
 
 ---
 
