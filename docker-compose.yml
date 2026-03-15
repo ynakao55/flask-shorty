@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16
+    container_name: shorty-db
+    environment:
+      POSTGRES_DB: shorty
+      POSTGRES_USER: shorty
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - shorty_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shorty -d shorty"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    container_name: flask-shorty
+    environment:
+      # ★重要：compose 内では DB ホストは "db" になります（localhost ではない）
+      DATABASE_URL: postgresql://shorty:password@db:5432/shorty
+      SECRET_KEY: change-me-please
+      APP_BASE_URL: http://localhost:8081
+      PORT: "8080"
+    ports:
+      - "8081:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  shorty_pgdata:
